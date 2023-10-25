@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Prescripteurs;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use Illuminate\Validation\Rules;
-
-
-class StoreUserRequest extends FormRequest
+class UpdatePrescripteurRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +22,8 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string','max:255'],
-            'email' => ['required','string','max:255','unique:users'],
-            'password' => ['required','confirmed',Rules\Password::defaults()]
+            'nom' => ['required','string','max:255'],
+            'prenom' => ['required','string','max:255'],
         ];
     }
 }

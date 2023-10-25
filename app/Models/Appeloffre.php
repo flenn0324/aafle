@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\User;
+use App\Models\Prescripteur;
 
 class Appeloffre extends Model
 {
     use HasFactory;
 
     protected $fillable=[
-        'user_id','name','description'
+        'prescripteur_id','name','description'
     ];
 
-    public function user()
+    public function prescripteur()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Prescripteur::class);
     }
 }

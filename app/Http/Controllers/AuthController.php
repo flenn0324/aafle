@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\AuthRequests\StoreUserRequest;
+use App\Http\Requests\AuthRequests\LoginUserRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
@@ -41,10 +42,11 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        event(new Registered($user));
 
         return $this->success([
             'user' => $user,
-            'token' => $user->createToken('API Token of' . $user->name)->plainTextToken
+            'token' => $user->createToken('API Token of ' . $user->name)->plainTextToken
         ]);
     }
 
