@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('societes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('prescripteur_id');
+            $table->unsignedBigInteger('prescripteur_id')->unique();
             $table->string('siren');
             $table->string('greffe');
             $table->foreign('prescripteur_id')->references('id')->on('prescripteurs')->onDelete('cascade');

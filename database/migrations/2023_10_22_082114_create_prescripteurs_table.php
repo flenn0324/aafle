@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('prescripteurs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->unique();
             $table->string('nom');
             $table->string('prenom');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

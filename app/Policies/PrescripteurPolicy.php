@@ -31,9 +31,14 @@ class PrescripteurPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user): Response
     {
-        return true;
+        $prescripteur=Prescripteur::where('user_id',$user->id)->get();
+        if($prescripteur->isEmpty())
+        {
+            return Response::allow();
+        }
+        return Response::denyWithStatus(404);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SocietesRequests\StoreSocieteRequest;
 use App\Http\Resources\SocieteResource;
+use App\Models\Prescripteur;
 use App\Models\Societe;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
@@ -13,15 +14,17 @@ use Illuminate\Support\Facades\Gate;
 class SocieteController extends Controller
 {
     use HttpResponses;
+    
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         if (Auth::user()->role==='admin') {
-            return Societe::collection(Societe::all());
+            return SocieteResource::collection(Societe::all());
         } else {
-            return Societe::collection(Societe::where('prescripteur_id', auth()->user->prescripteur->id)->get());
+            $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id'); // Récupère l'ID du prescripteur lié à l'utilisateur
+            return SocieteResource::collection(Societe::where('prescripteur_id', $prescripteurId)->get());
         }
     }
 
@@ -35,12 +38,15 @@ class SocieteController extends Controller
      */
     public function store(StoreSocieteRequest $request)
     {
-        $this->authorize('create', Societe::class);
+        if(Gate::denies('create', Societe::class))
+        {
+            return $this->error('','You are not authorized to create this societe',403);
+        }
 
         $request->validated($request->all());
-
+        
         $societe=Societe::create([
-            'prescripteur_id' => Auth::user()->id,
+            'prescripteur_id' => Prescripteur::where('user_id', auth()->user()->id)->value('id'),
             'siren' => $request->siren,
             'greffe' => $request->greffe,
         ]);

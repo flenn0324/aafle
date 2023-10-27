@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\DemandeFormalite;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class RdvFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'demandeformalite_id' => DemandeFormalite::all()->random()->id,
+            'type' => $this->faker->sentence(),
+            'messagerdv' => $this->faker->sentence(),
         ];
     }
 }

@@ -39,7 +39,9 @@ class PrescripteursController extends Controller
      */
     public function store(StorePrescripteurRequest $request)
     {
-        $this->authorize('create', Prescripteur::class);
+        if (Gate::denies('create', Prescripteur::class)) {
+            return $this->error('','You are not authorized to create a new prescripteur, already have one',403);
+        }
 
         $request->validated($request->all());
 

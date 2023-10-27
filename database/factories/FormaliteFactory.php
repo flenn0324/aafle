@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,16 @@ class FormaliteFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::where('role', 'admin')->inRandomOrder()->first();
+
+        if (!$user) {
+            throw new \Exception("No user with the 'admin' role found.");
+        }
+
         return [
-            //
-        ];
+            'user_id' => $user->id,
+            'titre' => $this->faker->unique()->sentence(),
+            'description' => $this->faker->text(),
+    ];
     }
 }

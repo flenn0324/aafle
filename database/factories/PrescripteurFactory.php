@@ -18,7 +18,7 @@ class PrescripteurFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::all()->random()->id,
+            'user_id' => User::factory()->unique()->create(),
             'nom' => $this->faker->unique()->sentence(),
             'prenom' => $this->faker->text(),
         ];

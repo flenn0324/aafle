@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Societe;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class DirigeantFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'societe_id' => Societe::all()->random()->id,
+            'nom' => $this->faker->name(),
+            'prenom' => $this->faker->name(),
         ];
     }
 }

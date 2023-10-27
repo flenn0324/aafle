@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Societe;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class EtablisementFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'societe_id' => Societe::all()->random()->id,
+            'modele' => $this->faker->sentence(),
+            'activite' => $this->faker->sentence(),
         ];
     }
 }
