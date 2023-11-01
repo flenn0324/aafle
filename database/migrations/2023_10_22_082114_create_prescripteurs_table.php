@@ -14,8 +14,17 @@ return new class extends Migration
         Schema::create('prescripteurs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unique();
+            $table->enum('type_utilisateur', ['client', 'donneur_dordre'])->default('client');
+            $table->string('denomination_sociale');
+            $table->enum('civilite', ['Mr', 'Mme', 'Maitre']);
             $table->string('nom');
-            $table->string('prenom');
+            $table->string('prenom1');
+            $table->string('prenom2')->nullable();
+            $table->string('prenom3')->nullable();
+            $table->enum('fonction', ['avocat', 'function2', 'function3']);
+            $table->string('adresse');
+            $table->string('telephone', 20);
+            $table->string('fix',20);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -11,7 +11,7 @@ class StoreRdvRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,11 @@ class StoreRdvRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => ['required', 'string', 'max:255'],
-            'message' => ['required', 'string'],
+            'date' => ['nullable','required'],
+            'heure' => ['nullable','required'],
+            'objet' => ['nullable', 'string'],
+            'message' => ['nullable', 'string'],
+            'duree_rdv' => ['nullable', 'string'],
             'demandeformalite_id' => ['required', 'exists:demandeformalites,id'],
         ];
     }

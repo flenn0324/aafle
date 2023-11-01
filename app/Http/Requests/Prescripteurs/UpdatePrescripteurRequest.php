@@ -22,8 +22,8 @@ class UpdatePrescripteurRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required','string','max:255'],
-            'prenom' => ['required','string','max:255'],
+            'nom' => ['required', 'string', 'max:255'],
+            'prenom1' => ['required', 'string', 'max:255'],
         ];
     }
 }

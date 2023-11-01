@@ -22,8 +22,17 @@ class StorePrescripteurRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required','string','max:255'],
-            'prenom' => ['required','string','max:255'],
+            'nom' => ['required', 'string', 'max:255'],
+            'prenom1' => ['required', 'string', 'max:255'],
+            'type_utilisateur' => ['required', 'string', 'in:client,donneur_dordre'],
+            'denomination_sociale' => ['required', 'string', 'max:255'],
+            'civilite' => ['required', 'string', 'in:Mr,Mme,Maitre'],
+            'prenom2' => ['string', 'max:255'],
+            'prenom3' => ['string', 'max:255'],
+            'fonction' => ['required', 'string', 'in:avocat,function2,function3'],
+            'adresse' => ['required', 'string', 'max:255'],
+            'telephone' => ['required', 'numeric'], // Assuming a maximum length of 20
+            'fix' => ['required', 'numeric'], // Assuming a maximum length of 20
         ];
     }
 }

@@ -22,9 +22,18 @@ class StoreDirigeantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required','string','max:255'],
-            'prenom' => ['required','string','max:255'],
+            'nom' => ['required', 'string', 'max:255'],
+            'prenom' => ['required', 'string', 'max:255'],
             'societe_id' => ['required', 'exists:societes,id'],
+            'date_naissance' => ['required'],
+            'adresse' => ['required', 'string'],
+            'nationalite' => ['required', 'string'],
+            'departement_naissance' => ['required', 'string'],
+            'ville_naissance' => ['required', 'string'],
+            'pays_naissance' => ['required', 'string'],
+            'qualite' => ['required', 'string'],
+            'ancienne_qualite' => ['required', 'string'],
+            'date_modification' => ['required'],
         ];
     }
 }

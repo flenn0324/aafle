@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('appeloffres', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('prescripteur_id');
-            $table->string('name');
-            $table->string('description');
+            $table->enum('type', ['Annonce', 'Formalite']);
+            $table->integer('nombre_societes');
+            $table->enum('localisation', ['ile de france', 'france']);
+            $table->string('prestataire_actuel');
+            $table->enum('contacter_par', ['email', 'téléphone','courrier']);
+            $table->string('cahier_charge');
+            $table->string('commentaire');
             $table->foreign('prescripteur_id')->references('id')->on('prescripteurs')->onDelete('cascade');
             $table->timestamps();
         });

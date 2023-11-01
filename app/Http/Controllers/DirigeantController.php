@@ -20,7 +20,7 @@ class DirigeantController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role==='admin') {
+        if (Auth::user()->role === 'admin') {
             return DirigeantResource::collection(Dirigeant::all());
         } else {
             $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id');
@@ -37,27 +37,33 @@ class DirigeantController extends Controller
      */
     public function store(StoreDirigeantRequest $request)
     {
-        if(Gate::denies('create', Dirigeant::class))
-        {
-            return $this->error('','You are not authorized to create this Dirigeant',403);
+        if (Gate::denies('create', Dirigeant::class)) {
+            return $this->error('', 'You are not authorized to create this Dirigeant', 403);
         }
 
         $request->validated($request->all());
 
-        $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id'); 
+        $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id');
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
 
-        if (in_array($request->societe_id, $societeIds))
-        {
-            $dirigeant=Dirigeant::create([
+        if (in_array($request->societe_id, $societeIds)) {
+            $dirigeant = Dirigeant::create([
                 'societe_id' => $request->societe_id,
                 'nom' => $request->nom,
                 'prenom' => $request->prenom,
+                'date_naissance' => $request->date_naissance,
+                'adresse' => $request->adresse,
+                'nationalite' => $request->nationalite,
+                'departement_naissance' => $request->departement_naissance,
+                'ville_naissance' => $request->ville_naissance,
+                'pays_naissance' => $request->pays_naissance,
+                'qualite' => $request->qualite,
+                'ancienne_qualite' => $request->ancienne_qualite,
+                'date_modification' => $request->date_modification,
             ]);
             return new DirigeantResource($dirigeant);
-        }
-        else{
-            return $this->error('','You are not authorized to create an Dirigeant for another societe',403);
+        } else {
+            return $this->error('', 'You are not authorized to create an Dirigeant for another societe', 403);
         }
     }
 
@@ -67,7 +73,7 @@ class DirigeantController extends Controller
     public function show(Dirigeant $dirigeant)
     {
         if (Gate::denies('view', $dirigeant)) {
-            return $this->error('','You are not authorized to see',403);
+            return $this->error('', 'You are not authorized to see', 403);
         }
         return new DirigeantResource($dirigeant);
     }
@@ -81,9 +87,8 @@ class DirigeantController extends Controller
      */
     public function update(Request $request, Dirigeant $dirigeant)
     {
-        if(Gate::denies('update', $dirigeant))
-        {
-            return $this->error('','You are not authorized to update this',403);
+        if (Gate::denies('update', $dirigeant)) {
+            return $this->error('', 'You are not authorized to update this', 403);
         }
 
         $dirigeant->update($request->all());
@@ -96,13 +101,12 @@ class DirigeantController extends Controller
      */
     public function destroy(Dirigeant $dirigeant)
     {
-        if(Gate::denies('delete', $dirigeant))
-        {
-            return $this->error('','You are not authorized to delete this dirigeant, its not urs !',403);
+        if (Gate::denies('delete', $dirigeant)) {
+            return $this->error('', 'You are not authorized to delete this dirigeant, its not urs !', 403);
         }
 
         $dirigeant->delete();
 
-        return response(null,204);
+        return response(null, 204);
     }
 }

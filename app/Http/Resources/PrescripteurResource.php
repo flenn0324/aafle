@@ -18,9 +18,19 @@ class PrescripteurResource extends JsonResource
             'id' => (string)$this->id,
             'attributes' => [
                 'nom' => $this->nom,
-                'prenom' => $this->prenom,
+                'prenom1' => $this->prenom1,
                 'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at
+                'updated_at' => $this->updated_at,
+                'user_id' => $this->user_id,
+                'type_utilisateur' => $this->type_utilisateur,
+                'denomination_sociale' => $this->denomination_sociale,
+                'civilite' => $this->civilite,
+                'prenom2' => $this->prenom2,
+                'prenom3' => $this->prenom3,
+                'fonction' => $this->fonction,
+                'adresse' => $this->adresse,
+                'telephone' => $this->telephone,
+                'fix' => $this->fix,
             ],
             'relationships' => [
                 'id' => $this->user->id,

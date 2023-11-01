@@ -17,10 +17,13 @@ class RdvResource extends JsonResource
         return [
             'id' => (string)$this->id,
             'attributes' => [
-                'type' => $this->type,
-                'message_rdv' => $this->messagerdv,
+                'date' => $this->date,
+                'heure' => $this->heure,
+                'objet' => $this->objet,
+                'message' => $this->message,
+                'duree_rdv' => $this->duree_rdv,
                 'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at
+                'updated_at' => $this->updated_at,
             ],
             'relationships' => [
                 'id' => $this->demandeformalite->id,

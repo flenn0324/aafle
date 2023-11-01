@@ -19,6 +19,10 @@ class EtablisementResource extends JsonResource
             'attributes' => [
                 'modele' => $this->modele,
                 'activite' => $this->activite,
+                'date_debut' => $this->date_debut,
+                'adresse' => $this->adresse,
+                'nom_commercial' => $this->nom_commercial,
+                'enseigne' => $this->enseigne,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at
             ],

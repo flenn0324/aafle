@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RdvRequests\StoreRdvRequest;
 use App\Http\Resources\RdvResource;
-use App\Models\DemandeFormalite;
+use App\Models\Demandeformalite;
 use App\Models\Prescripteur;
 use App\Models\Rdv;
 use App\Models\Societe;
@@ -22,10 +22,10 @@ class RdvController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role==='admin') {
+        if (Auth::user()->role === 'admin') {
             return RdvResource::collection(Rdv::all());
         } else {
-           /* $userId = auth()->user()->id;
+            /* $userId = auth()->user()->id;
 
        $rdvs = Rdv::select('rdv.*')
                ->join('demandeformalites', 'rdv.demandeformalite_id', '=', 'demandeformalites.id')
@@ -35,7 +35,7 @@ class RdvController extends Controller
                ->get();*/
             $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id');
             $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
-            $demandeIds = DemandeFormalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
+            $demandeIds = Demandeformalite::whereIn('societe_id', $societeIds)->pluck('id')->toArray();
             return RdvResource::collection(Rdv::whereIn('demandeformalite_id', $demandeIds)->get());
         }
     }
@@ -48,27 +48,27 @@ class RdvController extends Controller
      */
     public function store(StoreRdvRequest $request)
     {
-        if(Gate::denies('create', Rdv::class))
-        {
-            return $this->error('','You are not authorized to create this rdv',403);
+        if (Gate::denies('create', Rdv::class)) {
+            return $this->error('', 'You are not authorized to create this rdv', 403);
         }
 
         $request->validated($request->all());
 
-        $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id'); 
+        $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id');
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
-        $demandeIds = DemandeFormalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
-        if (in_array($request->demandeformalite_id, $demandeIds))
-        {
-            $rdv=Rdv::create([
+        $demandeIds = Demandeformalite::whereIn('societe_id', $societeIds)->pluck('id')->toArray();
+        if (in_array($request->demandeformalite_id, $demandeIds)) {
+            $rdv = Rdv::create([
                 'demandeformalite_id' => $request->demandeformalite_id,
-                'type' => $request->type,
-                'messagerdv' => $request->messagerdv,
+                'date' => $request->date,
+                'heure' => $request->heure,
+                'objet' => $request->objet,
+                'message' => $request->message,
+                'duree_rdv' => $request->duree_rdv,
             ]);
             return new RdvResource($rdv);
-        }
-        else{
-            return $this->error('','You are not authorized to create rdv, demande formalite existe pas ou vous avez pas encore de societe',403);
+        } else {
+            return $this->error('', 'You are not authorized to create rdv, demande formalite existe pas ou vous avez pas encore de societe', 403);
         }
     }
 
@@ -78,7 +78,7 @@ class RdvController extends Controller
     public function show(Rdv $rdv)
     {
         if (Gate::denies('view', $rdv)) {
-            return $this->error('','You are not authorized to see',403);
+            return $this->error('', 'You are not authorized to see', 403);
         }
         return new RdvResource($rdv);
     }
@@ -92,9 +92,8 @@ class RdvController extends Controller
      */
     public function update(Request $request, Rdv $rdv)
     {
-        if(Gate::denies('update', $rdv))
-        {
-            return $this->error('','You are not authorized to update this rdv, its not urs !',403);
+        if (Gate::denies('update', $rdv)) {
+            return $this->error('', 'You are not authorized to update this rdv, its not urs !', 403);
         }
 
         $rdv->update($request->all());
@@ -107,13 +106,12 @@ class RdvController extends Controller
      */
     public function destroy(Rdv $rdv)
     {
-        if(Gate::denies('delete', $rdv))
-        {
-            return $this->error('','You are not authorized to delete this rdv, its not urs !',403);
+        if (Gate::denies('delete', $rdv)) {
+            return $this->error('', 'You are not authorized to delete this rdv, its not urs !', 403);
         }
 
         $rdv->delete();
 
-        return response(null,204);
+        return response(null, 204);
     }
 }

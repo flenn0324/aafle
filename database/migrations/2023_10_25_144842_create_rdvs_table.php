@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('rdvs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('demandeformalite_id');
-            $table->string('type');
-            $table->string('messagerdv');
-            $table->foreign('demandeformalite_id')->references('id')->on('demande_formalites')->onDelete('cascade');
+            $table->date('date')->nullable();
+            $table->time('heure')->nullable();
+            $table->string('objet')->nullable();
+            $table->string('message')->nullable();
+            $table->string('duree_rdv')->nullable();
+            $table->foreign('demandeformalite_id')->references('id')->on('demandeformalites')->onDelete('cascade');
             $table->timestamps();
         });
     }

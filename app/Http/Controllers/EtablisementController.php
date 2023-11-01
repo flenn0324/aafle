@@ -21,7 +21,7 @@ class EtablisementController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role==='admin') {
+        if (Auth::user()->role === 'admin') {
             return EtablisementResource::collection(Etablisement::all());
         } else {
             $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id');
@@ -40,29 +40,29 @@ class EtablisementController extends Controller
      */
     public function store(StoreEtablisementRequest $request)
     {
-        if(Gate::denies('create', Etablisement::class))
-        {
-            return $this->error('','You are not authorized to create this etablisement',403);
+        if (Gate::denies('create', Etablisement::class)) {
+            return $this->error('', 'You are not authorized to create this etablisement', 403);
         }
 
         $request->validated($request->all());
 
-        $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id'); 
+        $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id');
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
 
-        if (in_array($request->societe_id, $societeIds))
-        {
-            $etablisement=Etablisement::create([
+        if (in_array($request->societe_id, $societeIds)) {
+            $etablisement = Etablisement::create([
                 'societe_id' => $request->societe_id,
                 'modele' => $request->modele,
                 'activite' => $request->activite,
+                'date_debut' => $request->date_debut,
+                'adresse' => $request->adresse,
+                'nom_commercial' => $request->nom_commercial,
+                'enseigne' => $request->enseigne,
             ]);
             return new EtablisementResource($etablisement);
+        } else {
+            return $this->error('', 'You are not authorized to create an etablisement for another societe', 403);
         }
-        else{
-            return $this->error('','You are not authorized to create an etablisement for another societe',403);
-        }
-        
     }
 
     /**
@@ -71,7 +71,7 @@ class EtablisementController extends Controller
     public function show(Etablisement $etablisement)
     {
         if (Gate::denies('view', $etablisement)) {
-            return $this->error('','You are not authorized to see',403);
+            return $this->error('', 'You are not authorized to see', 403);
         }
         return new EtablisementResource($etablisement);
     }
@@ -86,9 +86,8 @@ class EtablisementController extends Controller
      */
     public function update(Request $request, Etablisement $etablisement)
     {
-        if(Gate::denies('update', $etablisement))
-        {
-            return $this->error('','You are not authorized to update this',403);
+        if (Gate::denies('update', $etablisement)) {
+            return $this->error('', 'You are not authorized to update this', 403);
         }
 
         $etablisement->update($request->all());
@@ -101,13 +100,12 @@ class EtablisementController extends Controller
      */
     public function destroy(Etablisement $etablisement)
     {
-        if(Gate::denies('delete', $etablisement))
-        {
-            return $this->error('','You are not authorized to delete this etablisement, its not urs !',403);
+        if (Gate::denies('delete', $etablisement)) {
+            return $this->error('', 'You are not authorized to delete this etablisement, its not urs !', 403);
         }
 
         $etablisement->delete();
 
-        return response(null,204);
+        return response(null, 204);
     }
 }

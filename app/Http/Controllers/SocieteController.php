@@ -45,10 +45,19 @@ class SocieteController extends Controller
 
         $request->validated($request->all());
         
-        $societe=Societe::create([
+        $societe = Societe::create([
             'prescripteur_id' => Prescripteur::where('user_id', auth()->user()->id)->value('id'),
             'siren' => $request->siren,
             'greffe' => $request->greffe,
+            'adresse' => $request->adresse,
+            'forme_sociale' => $request->forme_sociale,
+            'denomination' => $request->denomination,
+            'objet_sociale' => $request->objet_sociale,
+            'date' => $request->date,
+            'duree' => $request->duree,
+            'capital_social' => $request->capital_social,
+            'exercice_social' => $request->exercice_social,
+            'sigle' => $request->sigle,
         ]);
 
         return new SocieteResource($societe);

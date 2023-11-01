@@ -22,8 +22,17 @@ class StoreSocieteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'siren' => ['required','string','max:255'],
-            'greffe' => ['required','string','max:255'],
+            'siren' => ['required', 'string', 'max:255'],
+            'greffe' => ['required', 'string', 'max:255'],
+            'forme_sociale' => ['required', 'string', 'max:255'],
+            'adresse' => ['required', 'string', 'max:255'],
+            'denomination' => ['required', 'string', 'max:255'],
+            'objet_sociale' => ['required', 'string', 'max:255'],
+            'date' => ['required'],
+            'duree' => ['required', 'integer'],
+            'capital_social' => ['required', 'string', 'max:255'],
+            'exercice_social' => ['required', 'string', 'max:255'],
+            'sigle' => ['required', 'string', 'max:255'],
         ];
     }
 }

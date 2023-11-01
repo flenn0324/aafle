@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\DemandeFormalite;
+use App\Models\Demandeformalite;
 use App\Models\Prescripteur;
 use App\Models\Rdv;
 use App\Models\Societe;
@@ -37,7 +37,7 @@ class RdvPolicy
     {
         $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id');
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
-        $demandeIds = DemandeFormalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
+        $demandeIds = Demandeformalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
         if (in_array($rdv->demandeformalite_id, $demandeIds)) {
             return Response::allow();
         } else {
@@ -52,7 +52,7 @@ class RdvPolicy
     {
         $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id'); 
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
-        $demandeIds = DemandeFormalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
+        $demandeIds = Demandeformalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
         if($demandeIds!= null)
         {
             return Response::allow();
@@ -67,7 +67,7 @@ class RdvPolicy
     {
         $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id'); 
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
-        $demandeIds = DemandeFormalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
+        $demandeIds = Demandeformalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
         if(in_array($rdv->demandeformalite_id, $demandeIds))
         {
             return Response::allow();
@@ -82,7 +82,7 @@ class RdvPolicy
     {
         $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id'); 
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
-        $demandeIds = DemandeFormalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
+        $demandeIds = Demandeformalite::whereIn('societe_id',$societeIds)->pluck('id')->toArray();
         if(in_array($rdv->demandeformalite_id, $demandeIds))
         {
             return Response::allow();

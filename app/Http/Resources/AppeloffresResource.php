@@ -17,8 +17,14 @@ class AppeloffresResource extends JsonResource
         return [
             'id' => (string)$this->id,
             'attributes' => [
-                'name' => $this->name,
-                'description' => $this->description,
+                'prescripteur_id' => $this->prescripteur_id,
+                'type' => $this->type,
+                'nombre_societes' => $this->nombre_societes,
+                'localisation' => $this->localisation,
+                'prestataire_actuel' => $this->prestataire_actuel,
+                'contacter_par' => $this->contacter_par,
+                'cahier_charge' => $this->cahier_charge,
+                'commentaire' => $this->commentaire,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at
             ],

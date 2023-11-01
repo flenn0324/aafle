@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('verified', function (){
+    return "email verified";
+ })->name('verify');
+ 
+ Route::get('averified', function (){
+     return "email already verified";
+ })->name('already');
+ 
+ Route::get('/password/reset', function (){
+    return "password reset form";
+ })->name('password.reset');
+

@@ -22,7 +22,7 @@ class PrescripteursController extends Controller
         if (Auth::user()->role==='admin') {
             return PrescripteurResource::collection(Prescripteur::all());
         } else {
-            return PrescripteurResource::collection(Prescripteur::where('user_id', auth()->id)->get());
+            return PrescripteurResource::collection(Prescripteur::where('user_id', auth()->user()->id)->get());
         }
     }
 
@@ -47,8 +47,17 @@ class PrescripteursController extends Controller
 
         $Prescripteur=Prescripteur::create([
             'user_id' => Auth::user()->id,
+            'type_utilisateur' => $request->type_utilisateur,
+            'denomination_sociale' => $request->denomination_sociale,
+            'civilite' => $request->civilite,
             'nom' => $request->nom,
-            'prenom' => $request->prenom,
+            'prenom1' => $request->prenom1,
+            'prenom2' => $request->prenom2,
+            'prenom3' => $request->prenom3,
+            'fonction' => $request->fonction,
+            'adresse' => $request->adresse,
+            'telephone' => $request->telephone,
+            'fix' => $request->fix,
         ]);
 
         return new PrescripteurResource($Prescripteur);

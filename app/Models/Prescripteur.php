@@ -9,9 +9,7 @@ class Prescripteur extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'user_id','nom','prenom'
-    ];
+    protected $guarded = [];
 
     public function user()
     {

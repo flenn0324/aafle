@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DemandeFormalite extends Model
+class Demandeformalite extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+
 
     public function societe()
     {

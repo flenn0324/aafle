@@ -13,6 +13,6 @@ class Rdv extends Model
 
     public function demandeformalite()
     {
-        return $this->belongsTo(DemandeFormalite::class);
+        return $this->belongsTo(Demandeformalite::class);
     }
 }

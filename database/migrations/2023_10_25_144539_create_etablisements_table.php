@@ -16,6 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('societe_id')->unique();
             $table->string('modele');
             $table->string('activite');
+            $table->date('date_debut');
+            $table->string('adresse');
+            $table->string('nom_commercial');
+            $table->string('enseigne');
             $table->foreign('societe_id')->references('id')->on('societes')->onDelete('cascade');
             $table->timestamps();
         });

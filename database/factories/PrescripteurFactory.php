@@ -19,8 +19,17 @@ class PrescripteurFactory extends Factory
     {
         return [
             'user_id' => User::factory()->unique()->create(),
+            'type_utilisateur' => $this->faker->randomElement(['client', 'donneur_dordre']),
+            'denomination_sociale' => $this->faker->unique()->sentence(),
+            'civilite' => $this->faker->randomElement(['Mr', 'Mme', 'Maitre']),
             'nom' => $this->faker->unique()->sentence(),
-            'prenom' => $this->faker->text(),
+            'prenom1' => $this->faker->sentence(),
+            'prenom2' => $this->faker->sentence(),
+            'prenom3' => $this->faker->sentence(),
+            'fonction' => $this->faker->randomElement(['avocat', 'function2', 'function3']),
+            'adresse' => $this->faker->address,
+            'telephone' => $this->faker->randomNumber(10),
+            'fix' => $this->faker->randomNumber(10),
         ];
     }
 }

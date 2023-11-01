@@ -27,8 +27,6 @@ class DemandeFormaliteResource extends JsonResource
                 'societe_siren' => $this->societe->siren,
                 'societe_greffe' => $this->societe->greffe,
                 'id_formalite' => $this->formalite->id,
-                'formalite_titre' => $this->formalite->titre,
-                'formalite_description' => $this->formalite->description,
             ]
         ];
     }

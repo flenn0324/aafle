@@ -13,7 +13,7 @@ class Formalite extends Model
 
     public function demandesformalites()
     {
-        return $this->hasMany(DemandeFormalite::class);
+        return $this->hasMany(Demandeformalite::class);
     }
 
     public function user()

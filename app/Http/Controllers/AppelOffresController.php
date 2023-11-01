@@ -6,6 +6,7 @@ use App\Http\Requests\AppeloffresRequests\StoreAppeloffreRequest;
 use App\Http\Requests\AppeloffresRequests\UpdateAppeloffreRequest;
 use App\Http\Resources\AppeloffresResource;
 use App\Models\Appeloffre;
+use App\Models\Prescripteur;
 use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
@@ -22,10 +23,11 @@ class AppelOffresController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role==='admin') {
+        if (Auth::user()->role === 'admin') {
             return AppeloffresResource::collection(Appeloffre::all());
         } else {
-            return AppeloffresResource::collection(Appeloffre::where('user_id', auth()->id)->get());
+            $prescripteurId = Prescripteur::where('user_id', Auth::user()->id)->value('id');
+            return AppeloffresResource::collection(Appeloffre::where('prescripteur_id', $prescripteurId)->get());
         }
     }
 
@@ -46,10 +48,15 @@ class AppelOffresController extends Controller
 
         $request->validated($request->all());
 
-        $Appeloffre=Appeloffre::create([
-            'user_id' => Auth::user()->id,
-            'name' => $request->name,
-            'description' => $request->description,
+        $Appeloffre = Appeloffre::create([
+            'prescripteur_id' => Auth::user()->id,
+            'type' => $request->type,
+            'nombre_societes' => $request->nombre_societes,
+            'localisation' => $request->localisation,
+            'prestataire_actuel' => $request->prestataire_actuel,
+            'contacter_par' => $request->contacter_par,
+            'cahier_charge' => $request->cahier_charge,
+            'commentaire' => $request->commentaire,
         ]);
 
         return new AppeloffresResource($Appeloffre);
@@ -61,7 +68,7 @@ class AppelOffresController extends Controller
     public function show(Appeloffre $Appeloffre)
     {
         if (Gate::denies('view', $Appeloffre)) {
-            return $this->error('','You are not authorized to see',403);
+            return $this->error('', 'You are not authorized to see', 403);
         }
         return new AppeloffresResource($Appeloffre);
     }
@@ -79,15 +86,13 @@ class AppelOffresController extends Controller
      */
     public function update(UpdateAppeloffreRequest $request, Appeloffre $Appeloffre)
     {
-        if(Gate::denies('update', $Appeloffre))
-        {
-            return $this->error('','You are not authorized to update this',403);
+        if (Gate::denies('update', $Appeloffre)) {
+            return $this->error('', 'You are not authorized to update this', 403);
         }
 
         $Appeloffre->update($request->all());
 
         return new AppeloffresResource($Appeloffre);
-
     }
 
     /**
@@ -95,13 +100,12 @@ class AppelOffresController extends Controller
      */
     public function destroy(Appeloffre $Appeloffre)
     {
-        if(Gate::denies('delete', $Appeloffre))
-        {
-            return $this->error('','You are not authorized to delete this',403);
+        if (Gate::denies('delete', $Appeloffre)) {
+            return $this->error('', 'You are not authorized to delete this', 403);
         }
 
         $Appeloffre->delete();
 
-        return response(null,204);
+        return response(null, 204);
     }
 }

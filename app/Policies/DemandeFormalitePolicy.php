@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\DemandeFormalite;
+use App\Models\Demandeformalite;
 use App\Models\Prescripteur;
 use App\Models\Societe;
 use App\Models\User;
@@ -32,9 +32,9 @@ class DemandeFormalitePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, DemandeFormalite $demandeFormalite): Response
+    public function view(User $user, Demandeformalite $demandeFormalite): Response
     {
-        $prescripteurId = Prescripteur::where('user_id', auth()->user()->id)->value('id');
+        $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id');
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
 
         if (in_array($demandeFormalite->societe_id, $societeIds)) {
@@ -61,7 +61,7 @@ class DemandeFormalitePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, DemandeFormalite $demandeFormalite): Response
+    public function update(User $user, Demandeformalite $demandeFormalite): Response
     {
         $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id'); 
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
@@ -75,7 +75,7 @@ class DemandeFormalitePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, DemandeFormalite $demandeFormalite): Response
+    public function delete(User $user, Demandeformalite $demandeFormalite): Response
     {
         $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id'); 
         $societeIds = Societe::where('prescripteur_id', $prescripteurId)->pluck('id')->toArray();
@@ -93,7 +93,7 @@ class DemandeFormalitePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, DemandeFormalite $demandeFormalite): Response
+    public function forceDelete(User $user, Demandeformalite $demandeFormalite): Response
     {
         return $user->isAdmin()
             ? Response::allow()

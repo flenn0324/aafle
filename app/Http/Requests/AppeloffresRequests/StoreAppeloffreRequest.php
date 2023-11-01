@@ -22,8 +22,14 @@ class StoreAppeloffreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string','max:255'],
-            'description' => ['required','string'],
+            'prescripteur_id' => ['required', 'exists:prescripteurs,id'],
+            'type' => ['required', 'in:Annonce,Formalite'],
+            'nombre_societes' => ['required', 'integer'],
+            'localisation' => ['required', 'in:ile de france,france'],
+            'prestataire_actuel' => ['required', 'string'],
+            'contacter_par' => ['required', 'in:email,téléphone,courrier'],
+            'cahier_charge' => ['required', 'string'],
+            'commentaire' => ['required', 'string'],
         ];
     }
 }

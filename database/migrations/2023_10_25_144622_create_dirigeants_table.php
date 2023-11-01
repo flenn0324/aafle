@@ -16,6 +16,15 @@ return new class extends Migration
             $table->unsignedBigInteger('societe_id');
             $table->string('nom');
             $table->string('prenom');
+            $table->date('date_naissance');
+            $table->string('adresse');
+            $table->string('nationalite');
+            $table->string('departement_naissance');
+            $table->string('ville_naissance');
+            $table->string('pays_naissance');
+            $table->string('qualite');
+            $table->string('ancienne_qualite');
+            $table->date('date_modification');
             $table->foreign('societe_id')->references('id')->on('societes')->onDelete('cascade');
             $table->timestamps();
         });

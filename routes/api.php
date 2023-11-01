@@ -24,6 +24,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class,'register']);
 
+Route::get('verify/{id}/{hash}', [AuthController::class, 'verify'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+// Resend link to verify email
+Route::post('verify/resend', [AuthController::class, 'resend'])->middleware(['auth:api', 'throttle:6,1'])->name('verification.send');
+// Forgot Password
+Route::post('/password/forgot', [AuthController::class, 'forgot']);
+// Reset Password
+Route::post('/password/reset', [AuthController::class, 'reset']);
+
 // Protected routes 
 Route::group(['middleware'=> ['auth:sanctum']],function() {
     Route::post('/logout',[AuthController::class,'logout']);
