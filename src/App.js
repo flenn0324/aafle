@@ -17,14 +17,27 @@ import Domiciliation from "./pages/FunctionalPages/Domiciliation"
 import AppelOffre from "./pages/FunctionalPages/AppelOffre"
 import NewUserPage from "./pages/auth/NewUserPage"
 import AdminDashboard from "./pages/Dashboard/content/AdminDashboard"
-import Prescripteurs from "./pages/Dashboard/content/Prescripteurs"
 import AdminLayouts from "./components/layouts/AdminLayouts"
-import Societes from "./pages/Dashboard/content/Societes"
+
+import Prescripteurs from "./pages/Dashboard/content/Prescripteurs/Prescripteurs"
+import CreatePrescripteur from "./pages/Dashboard/content/Prescripteurs/CreatePrescripteur"
+import UpdatePrescripteur from "./pages/Dashboard/content/Prescripteurs/UpdatePrescripteur"
+import ReadPrescripteur from "./pages/Dashboard/content/Prescripteurs/ReadPrescripteur"
+
+import Societes from "./pages/Dashboard/content/Societes/Societes"
+import AddSociete from "./pages/Dashboard/content/Societes/AddSociete"
+import UpdateSociete from "./pages/Dashboard/content/Societes/UpdateSociete"
+import ReadSociete from "./pages/Dashboard/content/Societes/ReadSociete"
+
+import Etablissements from "./pages/Dashboard/content/Etablissements/Etablissements"
+
 import AdminFormalites from "./pages/Dashboard/content/AdminFormalites"
 import AdminAppeloffre from "./pages/Dashboard/content/AdminAppeloffre"
 import Calendrier from "./pages/Dashboard/content/Calendrier"
 import Demandesformalites from "./pages/Dashboard/content/Demandesformalites"
-import Dirigeants from "./pages/Dashboard/content/Dirigeants"
+import Dirigeants from "./pages/Dashboard/content/Dirigeants/Dirigeants"
+
+
 
 
 function App() {
@@ -50,13 +63,24 @@ function App() {
           <Route path={`${process.env.PUBLIC_URL}/pages/SitePages/ContactPage`} element={<ContactPage/>}  />
           <Route path={`/admin`} element={<AdminLayouts/>}>
             <Route path={`/admin`} element={<AdminDashboard/>} />
-            <Route path={`/admin/users`} element={<Prescripteurs/>} />
             <Route path={`/admin/societes`} element={<Societes/>} />
             <Route path={`/admin/dirigeants`} element={<Dirigeants/>} />
             <Route path={`/admin/demandesformalites`} element={<Demandesformalites/>} />
             <Route path={`/admin/calendrier`} element={<Calendrier/>} />
             <Route path={`/admin/formalites`} element={<AdminFormalites/>} />
             <Route path={`/admin/appeloffre`} element={<AdminAppeloffre/>} />
+            {/*Prescripteurs*/}
+            <Route path={`/admin/users`} element={<Prescripteurs/>} />
+            <Route path={`/admin/prescripteurs/add`} element={<CreatePrescripteur/>} />
+            <Route path={`/admin/prescripteurs/update`} element={<UpdatePrescripteur/>} />
+            <Route path={`/admin/prescripteurs/read`} element={<ReadPrescripteur/>} />
+            {/*Societes*/}
+            <Route path={`/admin/societes`} element={<Societes/>} />
+            <Route path={`/admin/societes/add`} element={<AddSociete/>} />
+            <Route path={`/admin/societes/update`} element={<UpdateSociete/>} />
+            <Route path={`/admin/societes/read`} element={<ReadSociete/>} />
+            {/*Etablissements*/}
+            <Route path={`/admin/etablissements`} element={<Etablissements/>} />
           </Route>
         </Routes>
       </Router>

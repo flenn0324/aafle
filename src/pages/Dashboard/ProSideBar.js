@@ -32,15 +32,23 @@ const ProSideBar = () => {
 
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  
 
   return (
     <Box
       sx={{
+        "& .css-1l8icbj": {
+          background: `#112244 !important`,
+          padding: 0
+        },
         "& .css-dip3t8": {
           background: `#112244 !important`,
         },
         "& a": {
           color: `white !important`,
+        },
+        "& a:hover": {
+          color: `#4286f4 !important`,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -49,7 +57,7 @@ const ProSideBar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#4286f4 !important",
         },
         "& .pro-menu-item.active": {
           color: "#6870fa !important",
@@ -64,7 +72,7 @@ const ProSideBar = () => {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
-              color: "grey",
+              color: "#4286f4",
             }}
           >
             {!isCollapsed && (
@@ -116,6 +124,13 @@ const ProSideBar = () => {
             <Item
               title="Dirigeants"
               to="/admin/dirigeants"
+              icon={<PeopleOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Etablissements"
+              to="/admin/etablissements"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

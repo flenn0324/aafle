@@ -1,6 +1,5 @@
 import { Box, IconButton } from "@mui/material";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 const Header = () => {
@@ -24,9 +23,6 @@ const Header = () => {
       <Box display="flex">
         <IconButton style={{ color: 'white' }}>
           <NotificationsOutlinedIcon />
-        </IconButton>
-        <IconButton style={{ color: 'white' }}>
-          <SettingsOutlinedIcon />
         </IconButton>
         <IconButton style={{ color: 'white' }}>
           <PersonOutlinedIcon />

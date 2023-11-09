@@ -1,6 +1,6 @@
 import React from "react";
-import HeadContent from '../HeadContent';
-import "../dashboard.css";
+import HeadContent from '../../HeadContent';
+import "../../dashboard.css";
 
 
 

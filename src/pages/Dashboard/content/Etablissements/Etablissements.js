@@ -1,12 +1,11 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
-import HeadContent from "../HeadContent";
-import "../dashboard.css";
+import HeadContent from "../../HeadContent";
+import "../../dashboard.css";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
 
-function Prescripteurs() {
+function Etablissements() {
   const Data = [
     {
       id: 1,
@@ -65,7 +64,7 @@ function Prescripteurs() {
           variant="outlined"
           color="primary"
           component={Link}
-          to={`/admin`}
+          to={`/admin/prescripteurs/read`}
           state={{ payment: row }}
         >
           Consulter
@@ -78,31 +77,16 @@ function Prescripteurs() {
     <div>
       <Box m="20px">
         <HeadContent
-          title="Prescripteurs"
-          subtitle="Listes des prescripteurs"
+          title="Etablissements"
+          subtitle="Listes des établissements"
         />
-        <Container fluid>
-          <Row className="text-end">
-            <Col>
-              <Button
-                size="small"
-                variant="outlined"
-                color="success"
-                component={Link}
-                to={`/admin`}
-              >
-                Ajouter +
-              </Button>
-            </Col>
-          </Row>
-        </Container>
         <Box m="40px 0 0 0" height="75vh">
           <DataGrid
             checkboxSelection
             rows={Data}
             columns={columns}
             components={{ Toolbar: GridToolbar }}
-            localeText={{ noRowsLabel: "Pas de prescripteurs inscrits" }}
+            localeText={{ noRowsLabel: "Pas d'établissements inscrit" }}
           />
         </Box>
       </Box>
@@ -110,4 +94,4 @@ function Prescripteurs() {
   );
 }
 
-export default Prescripteurs;
+export default Etablissements;
