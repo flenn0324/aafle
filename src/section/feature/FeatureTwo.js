@@ -9,8 +9,6 @@ import { Link } from "../../components/button/Button"
 import { Service, ServiceIcon, ServiceText } from "../../components/service/Service"
 import { Sharing, Vision } from "../../components/svg/Icon"
 import ThumbImg1 from '../../images/gfx/a.png'
-import ThumbImg2 from '../../images/gfx/b.png'
-import ThumbImg3 from '../../images/gfx/c.png'
 import {FeatureTwoIcon} from './FeatureData'
 
 const FeatureReview = (props) =>{
@@ -55,7 +53,7 @@ const FeatureTwoAlt = (props) =>{
                 <Row className="flex-row-reverse align-items-center justify-content-between g-gs">
                     <Col lg="5">
                         <ImageBlock className="img-block-s1 right">
-                            <img src={ThumbImg2} alt="Thumb img" />
+                            <img src={ThumbImg1} alt="Thumb img" />
                         </ImageBlock>
                     </Col>
                     <Col lg="6">
@@ -96,7 +94,7 @@ const FeatureTwo = (props) =>{
                 <Row className="align-items-center justify-content-between g-gs">
                     <Col lg="5">
                     <ImageBlock className="img-block-s1 left">
-                            <img src={ThumbImg3} alt="Thumb img" />
+                            <img src={ThumbImg1} alt="Thumb img" />
                         </ImageBlock>
                     </Col>
                     <Col lg="6">
