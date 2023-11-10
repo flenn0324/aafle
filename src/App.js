@@ -16,8 +16,13 @@ import Formalites from "./pages/FunctionalPages/Formalites"
 import Domiciliation from "./pages/FunctionalPages/Domiciliation"
 import AppelOffre from "./pages/FunctionalPages/AppelOffre"
 import NewUserPage from "./pages/auth/NewUserPage"
+
 import AdminDashboard from "./pages/Dashboard/content/AdminDashboard"
+
 import AdminLayouts from "./components/layouts/AdminLayouts"
+import UserLayout from "./components/layouts/UserLayout"
+
+import Profil from "./pages/ClientPanel/content/Profil/Profil"
 
 import Prescripteurs from "./pages/Dashboard/content/Prescripteurs/Prescripteurs"
 import CreatePrescripteur from "./pages/Dashboard/content/Prescripteurs/CreatePrescripteur"
@@ -37,7 +42,16 @@ import Calendrier from "./pages/Dashboard/content/Calendrier"
 import Demandesformalites from "./pages/Dashboard/content/Demandesformalites"
 import Dirigeants from "./pages/Dashboard/content/Dirigeants/Dirigeants"
 
-
+import MesDemandesformalites from "./pages/ClientPanel/content/MesDemandesformalites"
+import MesAppeloffre from "./pages/ClientPanel/content/MesAppeloffre"
+import Rdvs from "./pages/ClientPanel/content/Rdvs"
+import MesDirigeants from "./pages/ClientPanel/content/Dirigeants/MesDirigeants"
+import MesEtablissements from "./pages/ClientPanel/content/Etablissements/MesEtablissements"
+import UpdateProfil from "./pages/ClientPanel/content/Profil/UpdateProfil"
+import MesSocietes from "./pages/ClientPanel/content/Societes/MesSocietes"
+import ClientAddSociete from "./pages/ClientPanel/content/Societes/ClientAddSociete"
+import ClientUpdateSociete from "./pages/ClientPanel/content/Societes/ClientUpdateSociete"
+import ClientReadSociete from "./pages/ClientPanel/content/Societes/ClientReadSociete"
 
 
 function App() {
@@ -63,7 +77,6 @@ function App() {
           <Route path={`${process.env.PUBLIC_URL}/pages/SitePages/ContactPage`} element={<ContactPage/>}  />
           <Route path={`/admin`} element={<AdminLayouts/>}>
             <Route path={`/admin`} element={<AdminDashboard/>} />
-            <Route path={`/admin/societes`} element={<Societes/>} />
             <Route path={`/admin/dirigeants`} element={<Dirigeants/>} />
             <Route path={`/admin/demandesformalites`} element={<Demandesformalites/>} />
             <Route path={`/admin/calendrier`} element={<Calendrier/>} />
@@ -81,6 +94,23 @@ function App() {
             <Route path={`/admin/societes/read`} element={<ReadSociete/>} />
             {/*Etablissements*/}
             <Route path={`/admin/etablissements`} element={<Etablissements/>} />
+          </Route>
+{/*USER*/}
+          <Route path={`/user`} element={<UserLayout/>}>
+            <Route path={`/user`} element={<Profil/>} />
+            <Route path={`/user/dirigeants`} element={<MesDirigeants/>} />
+            <Route path={`/user/demandesformalites`} element={<MesDemandesformalites/>} />
+            <Route path={`/user/rdvs`} element={<Rdvs/>} />
+            <Route path={`/user/appeloffre`} element={<MesAppeloffre/>} />
+            {/*Prescripteurs*/}
+            <Route path={`/user/profil/update`} element={<UpdateProfil/>} />
+            {/*Societes*/}
+            <Route path={`/user/societes`} element={<MesSocietes/>} />
+            <Route path={`/user/societes/add`} element={<ClientAddSociete/>} />
+            <Route path={`/user/societes/update`} element={<ClientUpdateSociete/>} />
+            <Route path={`/user/societes/read`} element={<ClientReadSociete/>} />
+            {/*Etablissements*/}
+            <Route path={`/user/etablissements`} element={<MesEtablissements/>} />
           </Route>
         </Routes>
       </Router>
