@@ -5,54 +5,69 @@ import "../../dashboard.css";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
+import {useFetchSocietesQuery} from "../../../../store";
+import Skeleton from '../Skeleton/Skeleton';
 
 function Societes() {
-  const Data = [
-    {
-      id: 1,
-      name: "Jon Snow",
-      email: "jonsnow@gmail.com",
-      age: 35,
-      phone: "(665)121-5454",
-    },
-    {
-      id: 2,
-      name: "Cersei Lannister",
-      email: "cerseilannister@gmail.com",
-      age: 42,
-      phone: "(421)314-2288",
-    },
-    {
-      id: 3,
-      name: "Jaime Lannister",
-      email: "jaimelannister@gmail.com",
-      age: 45,
-      phone: "(422)982-6739",
-    },
-  ];
+  
+  const {data,error,isLoading} = useFetchSocietesQuery();
+
+  console.log(data);
+
+  if (isLoading){
+    return (<div>
+      <Skeleton></Skeleton>
+    <Skeleton></Skeleton>
+    <Skeleton></Skeleton>
+    <Skeleton></Skeleton>
+    </div>);
+  }else if (error){
+    return (<Container>
+      <h1 className="mt-5 text-center">ERREUR 500</h1>
+      <h3 className="m-5 text-center">erreur de chargement du liste des sociétés</h3>
+    </Container>);
+  }
+ 
+
+  const dataTransformed = data.data.map((item) => {
+    const { id, attributes } = item;
+    return {
+      id: id,
+      siren: attributes.siren,
+      greffe: attributes.greffe,
+      forme_sociale: attributes.forme_sociale,
+      denomination: attributes.denomination,
+      objet_sociale: attributes.objet_sociale,
+      date: attributes.date,
+      duree: attributes.duree,
+      capital_social: attributes.capital_social,
+      exercice_social:attributes.exercice_social,
+      sigle:attributes.sigle,
+      adresse:attributes.adresse,
+    };
+  });
+
 
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "name",
-      headerName: "Name",
+      field: "siren",
+      headerName: "Siren",
       flex: 1,
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "greffe",
+      headerName: "Greffe",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "forme_sociale",
+      headerName: "Forme sociale",
+      flex: 1,
+    },
+    {
+      field: "denomination",
+      headerName: "Deno sociale",
       flex: 1,
     },
     {
@@ -66,7 +81,7 @@ function Societes() {
           color="primary"
           component={Link}
           to={`/admin/societes/read`}
-          //state={{ payment: row }}
+          state={{ societe: row }}
         >
           Consulter
         </Button>
@@ -99,7 +114,7 @@ function Societes() {
         <Box m="40px 0 0 0" height="75vh">
           <DataGrid
             checkboxSelection
-            rows={Data}
+            rows={dataTransformed}
             columns={columns}
             components={{ Toolbar: GridToolbar }}
             localeText={{ noRowsLabel: "Pas de sociétés" }}

@@ -4,54 +4,63 @@ import HeadContent from "../../HeadContent";
 import "../../dashboard.css";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
+import {useFetchPrescripteursQuery} from "../../../../store";
+import Skeleton from '../Skeleton/Skeleton';
+
 
 function Prescripteurs() {
-  const Data = [
-    {
-      id: 1,
-      name: "Jon Snow",
-      email: "jonsnow@gmail.com",
-      age: 35,
-      phone: "(665)121-5454",
-    },
-    {
-      id: 2,
-      name: "Cersei Lannister",
-      email: "cerseilannister@gmail.com",
-      age: 42,
-      phone: "(421)314-2288",
-    },
-    {
-      id: 3,
-      name: "Jaime Lannister",
-      email: "jaimelannister@gmail.com",
-      age: 45,
-      phone: "(422)982-6739",
-    },
-  ];
+  const {data,error,isLoading} = useFetchPrescripteursQuery();
+  console.log(data);
+  if (isLoading){
+    return <Skeleton></Skeleton>
+  }else if (error){
+    return (<div>erreur loading prescripteurs</div>)
+  }
+ 
+
+  const dataTransformed = data.data.map((item) => {
+    const { id, attributes } = item;
+    return {
+      id: id,
+      civilite: attributes.civilite,
+      denomenation: attributes.denomination_sociale,
+      nom: attributes.nom,
+      phone: attributes.telephone,
+      fonction: attributes.fonction,
+      type: attributes.type_utilisateur,
+    };
+  });
 
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "name",
-      headerName: "Name",
+      field: "civilite",
+      headerName: "Civilité",
       flex: 1,
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
+      field: "nom",
+      headerName: "Nom",
+      flex: 1,
+    },
+    {
+      field: "denomenation",
+      headerName: "Dénom Sociale",
+      flex: 1,
+    },
+    {
+      field: "fonction",
+      headerName: "Fonction",
+      flex: 1,
+    },
+    {
+      field: "type",
+      headerName: "Type utilisateur",
+      flex: 1,
     },
     {
       field: "phone",
-      headerName: "Phone Number",
-      flex: 1,
-    },
-    {
-      field: "email",
-      headerName: "Email",
+      headerName: "Téléphone",
       flex: 1,
     },
     {
@@ -83,7 +92,7 @@ function Prescripteurs() {
         <Box m="40px 0 0 0" height="75vh">
           <DataGrid
             checkboxSelection
-            rows={Data}
+            rows={dataTransformed}
             columns={columns}
             components={{ Toolbar: GridToolbar }}
             localeText={{ noRowsLabel: "Pas de prescripteurs inscrits" }}
