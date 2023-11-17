@@ -5,29 +5,33 @@ import "../../dashboard.css";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-import {useFetchSocietesQuery} from "../../../../store";
-import Skeleton from '../Skeleton/Skeleton';
+import { useFetchSocietesQuery } from "../../../../store";
+import Skeleton from "../Skeleton/Skeleton";
 
 function Societes() {
-  
-  const {data,error,isLoading} = useFetchSocietesQuery();
+  const { data, error, isLoading } = useFetchSocietesQuery();
 
   console.log(data);
 
-  if (isLoading){
-    return (<div>
-      <Skeleton></Skeleton>
-    <Skeleton></Skeleton>
-    <Skeleton></Skeleton>
-    <Skeleton></Skeleton>
-    </div>);
-  }else if (error){
-    return (<Container>
-      <h1 className="mt-5 text-center">ERREUR 500</h1>
-      <h3 className="m-5 text-center">erreur de chargement du liste des sociétés</h3>
-    </Container>);
+  if (isLoading) {
+    return (
+      <div>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+      </div>
+    );
+  } else if (error) {
+    return (
+      <Container>
+        <h1 className="mt-5 text-center">ERREUR 500</h1>
+        <h3 className="m-5 text-center">
+          erreur de chargement du liste des sociétés
+        </h3>
+      </Container>
+    );
   }
- 
 
   const dataTransformed = data.data.map((item) => {
     const { id, attributes } = item;
@@ -41,12 +45,11 @@ function Societes() {
       date: attributes.date,
       duree: attributes.duree,
       capital_social: attributes.capital_social,
-      exercice_social:attributes.exercice_social,
-      sigle:attributes.sigle,
-      adresse:attributes.adresse,
+      exercice_social: attributes.exercice_social,
+      sigle: attributes.sigle,
+      adresse: attributes.adresse,
     };
   });
-
 
   const columns = [
     { field: "id", headerName: "ID" },
@@ -92,10 +95,7 @@ function Societes() {
   return (
     <div>
       <Box m="20px">
-        <HeadContent
-          title="Sociétés"
-          subtitle="Listes des sociétés"
-        />
+        <HeadContent title="Sociétés" subtitle="Listes des sociétés" />
         <Container fluid>
           <Row className="text-end">
             <Col>

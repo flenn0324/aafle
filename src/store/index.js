@@ -13,11 +13,11 @@ export const store = configureStore({
         [societesApi.reducerPath] : societesApi.reducer
     }, 
     middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware().concat(societesApi.middleware);
+        return getDefaultMiddleware().concat(societesApi.middleware).concat(prescripteursApi.middleware);
     } 
 });
 
 setupListeners(store.dispatch);
 
-export {useFetchPrescripteursQuery} from './apis/prescripteursApi';
+export {useFetchPrescripteursQuery,useAddPrescripteurMutation,useRemovePrescripteurMutation,useUpdatePrescripteurMutation} from './apis/prescripteursApi';
 export {useFetchSocietesQuery,useAddSocieteMutation,useRemoveSocieteMutation,useUpdateSocieteMutation} from './apis/societesApi';

@@ -1,4 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -9,10 +11,18 @@ const AddSociete = () => {
   const[addSociete,results] = useAddSocieteMutation();
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
+  const alert =()=>{
+    return (<Alert severity="success">This is a success alert — check it out!</Alert>);
+  }
+
+  const handleFormSubmit = async (values) => {
     console.log(values);
-    addSociete(values);
+    await addSociete(values);
+    alert();
+    window.location.replace('/admin/societes'); 
   };
+
+  
 
   return (
     <Box m="20px">

@@ -4,17 +4,33 @@ import HeadContent from "../../HeadContent";
 import "../../dashboard.css";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import {useFetchPrescripteursQuery} from "../../../../store";
-import Skeleton from '../Skeleton/Skeleton';
+import { Container, Row, Col } from "reactstrap";
+import { useFetchPrescripteursQuery } from "../../../../store";
+import Skeleton from "../Skeleton/Skeleton";
 
 
 function Prescripteurs() {
   const {data,error,isLoading} = useFetchPrescripteursQuery();
   console.log(data);
-  if (isLoading){
-    return <Skeleton></Skeleton>
-  }else if (error){
-    return (<div>erreur loading prescripteurs</div>)
+
+  if (isLoading) {
+    return (
+      <div>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+      </div>
+    );
+  } else if (error) {
+    return (
+      <Container>
+        <h1 className="mt-5 text-center">ERREUR 500</h1>
+        <h3 className="m-5 text-center">
+          erreur de chargement du liste des prescripteurs
+        </h3>
+      </Container>
+    );
   }
  
 
@@ -22,12 +38,16 @@ function Prescripteurs() {
     const { id, attributes } = item;
     return {
       id: id,
+      type_utilisateur: attributes.type_utilisateur,
       civilite: attributes.civilite,
       denomenation: attributes.denomination_sociale,
       nom: attributes.nom,
+      prenom1: attributes.prenom1,
+      prenom2: attributes.prenom2,
+      prenom3: attributes.prenom3,
       phone: attributes.telephone,
+      fix: attributes.fix,
       fonction: attributes.fonction,
-      type: attributes.type_utilisateur,
     };
   });
 
@@ -54,7 +74,7 @@ function Prescripteurs() {
       flex: 1,
     },
     {
-      field: "type",
+      field: "type_utilisateur",
       headerName: "Type utilisateur",
       flex: 1,
     },
@@ -74,7 +94,7 @@ function Prescripteurs() {
           color="primary"
           component={Link}
           to={`/admin/prescripteurs/read`}
-          state={{ payment: row }}
+          state={{ prescripteur: row }}
         >
           Consulter
         </Button>
@@ -95,7 +115,7 @@ function Prescripteurs() {
             rows={dataTransformed}
             columns={columns}
             components={{ Toolbar: GridToolbar }}
-            localeText={{ noRowsLabel: "Pas de prescripteurs inscrits" }}
+            localeText={{ noRowsLabel: "Pas de prescripteurs" }}
           />
         </Box>
       </Box>

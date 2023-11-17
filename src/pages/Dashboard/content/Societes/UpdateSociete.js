@@ -10,6 +10,7 @@ const UpdateSociete = (props) => {
   //const[addSociete,results] = useAddSocieteMutation();
   const location = useLocation();
   const { societe } = location.state ? location.state : "";
+  
 
   const initialValues = {
     siren: societe.siren,
@@ -29,9 +30,10 @@ const UpdateSociete = (props) => {
   const [UpdateSociete, results] = useUpdateSocieteMutation();
   
 
-  const handleFormSubmit = (values) => {
+  const handleFormSubmit = async (values) => {
     console.log(values);
-    UpdateSociete(values);
+    await UpdateSociete(values);
+    window.location.replace('/admin/societes'); 
   };
 
   return (
