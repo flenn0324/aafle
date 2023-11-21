@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('prescripteur_id');
             $table->enum('type', ['Annonce', 'Formalite']);
-            $table->integer('nombre_societes');
+            $table->string('nombre_societes')->nullable();
             $table->enum('localisation', ['ile de france', 'france']);
             $table->string('prestataire_actuel');
             $table->enum('contacter_par', ['email', 'téléphone','courrier']);

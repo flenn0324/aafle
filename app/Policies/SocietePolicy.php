@@ -10,7 +10,7 @@ use Illuminate\Auth\Access\Response;
 
 class SocietePolicy
 {
-    use HttpResponses;
+    use HttpResponses; 
     public function before(User $user): bool|null
     {
         if ($user->isAdmin()) {

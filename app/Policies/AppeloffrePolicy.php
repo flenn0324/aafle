@@ -3,12 +3,14 @@
 namespace App\Policies;
 
 use App\Models\Appeloffre;
+use App\Models\Prescripteur;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use App\Traits\HttpResponses;
 
 class AppeloffrePolicy
 {
-
+    use HttpResponses;
     public function before(User $user): bool|null
     {
         if ($user->isAdmin()) {
@@ -30,9 +32,11 @@ class AppeloffrePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Appeloffre $appeloffre): Response
+    public function view(User $user, Appeloffre $societe): Response
     {
-        return $user->id === $appeloffre->user_id 
+        $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id'); // Récupère l'ID du prescripteur lié à l'utilisateur
+
+        return $prescripteurId === $societe->prescripteur->id
                 ? Response::allow()
                 : Response::denyWithStatus(404);
     }
@@ -50,7 +54,9 @@ class AppeloffrePolicy
      */
     public function update(User $user, Appeloffre $appeloffre): Response
     {
-        return $user->id === $appeloffre->user_id 
+        $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id'); // Récupère l'ID du prescripteur lié à l'utilisateur
+
+        return $prescripteurId === $appeloffre->prescripteur_id 
                 ? Response::allow()
                 : Response::denyWithStatus(404);
     }
@@ -60,7 +66,9 @@ class AppeloffrePolicy
      */
     public function delete(User $user, Appeloffre $appeloffre): Response
     {
-        return $user->id === $appeloffre->user_id
+        $prescripteurId = Prescripteur::where('user_id', $user->id)->value('id'); // Récupère l'ID du prescripteur lié à l'utilisateur
+
+        return $prescripteurId === $appeloffre->prescripteur_id 
                 ? Response::allow()
                 : Response::denyWithStatus(404);
     }

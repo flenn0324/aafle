@@ -24,7 +24,7 @@ class StoreAppeloffreRequest extends FormRequest
         return [
             'prescripteur_id' => ['required', 'exists:prescripteurs,id'],
             'type' => ['required', 'in:Annonce,Formalite'],
-            'nombre_societes' => ['required', 'integer'],
+            'nombre_societes' => ['required'],
             'localisation' => ['required', 'in:ile de france,france'],
             'prestataire_actuel' => ['required', 'string'],
             'contacter_par' => ['required', 'in:email,téléphone,courrier'],

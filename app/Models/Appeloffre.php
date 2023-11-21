@@ -11,9 +11,7 @@ class Appeloffre extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'prescripteur_id','name','description'
-    ];
+    protected $guarded = [];
 
     public function prescripteur()
     {
