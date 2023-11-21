@@ -4,10 +4,10 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import HeadContent from "../../HeadContent";
-import {useAddSocieteMutation} from "../../../../store";
+import {useAddAppeloffreMutation} from "../../../../store";
 
-const AddSociete = () => {
-  const[addSociete,results] = useAddSocieteMutation();
+const AddAppeloffre = () => {
+  const[addAppeloffre,results] = useAddAppeloffreMutation();
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const alert =()=>{
@@ -16,9 +16,9 @@ const AddSociete = () => {
 
   const handleFormSubmit = async (values) => {
     console.log(values);
-    await addSociete(values);
+    await addAppeloffre(values);
     alert();
-    window.location.replace('/admin/societes'); 
+    window.location.replace('/admin/appeloffres'); 
   };
 
   
@@ -26,8 +26,8 @@ const AddSociete = () => {
   return (
     <Box m="20px">
       <HeadContent
-          title="Ajouter une société"
-          subtitle="Ajouter une nouvelle société"
+          title="Ajouter un appel d'offre"
+          subtitle="Ajouter un nouveau appel d'offre"
         />
 
       <Formik
@@ -238,4 +238,4 @@ const initialValues = {
   adresse: "",
 };
 
-export default AddSociete;
+export default AddAppeloffre;

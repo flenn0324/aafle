@@ -4,12 +4,12 @@ import HeadContent from "../../HeadContent";
 import "../../dashboard.css";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
-import { useFetchEtablissementsQuery } from "../../../../store";
+import { Container } from "reactstrap";
+import { useFetchAppeloffresQuery } from "../../../../store";
 import Skeleton from "../Skeleton/Skeleton";
 
-function Etablissements() {
-  const { data, error, isLoading } = useFetchEtablissementsQuery();
+function AdminAppeloffre() {
+  const { data, error, isLoading } = useFetchAppeloffresQuery();
   console.log("liste :" + data);
   if (isLoading) {
     return (
@@ -25,7 +25,7 @@ function Etablissements() {
       <Container>
         <h1 className="mt-5 text-center">ERREUR 500</h1>
         <h3 className="m-5 text-center">
-          erreur de chargement du liste des établissements
+          erreur de chargement du liste des appels d'offres
         </h3>
       </Container>
     );
@@ -35,37 +35,40 @@ function Etablissements() {
     const { id, attributes,relationships } = item;
     return {
       id: id,
-      modele: attributes.modele,
-      activite: attributes.activite,
-      societe_siren : relationships.societe_siren,
-      societe_greffe : relationships.societe_greffe,
-      date_debut: attributes.date_debut,
-      adresse: attributes.adresse,
-      nom_commercial: attributes.nom_commercial,
-      enseigne: attributes.enseigne,
+      prescripteur_id: attributes.prescripteur_id,
+      type: attributes.type,
+      nombre_societes : attributes.nombre_societes,
+      localisation : attributes.localisation,
+      prestataire_actuel: attributes.prestataire_actuel,
+      contacter_par: attributes.contacter_par,
+      cahier_charge: attributes.cahier_charge,
+      commentaire: attributes.commentaire,
+      numero_prescripteur : relationships.id,
+      prescripteur_nom : relationships.prescripteur_nom,
+      prescripteur_prenom : relationships.prescripteur_prenom,
     };
   });
 
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "nom_commercial",
-      headerName: "Nom commercial",
+      field: "type",
+      headerName: "Type",
       flex: 1,
     },
     {
-      field: "modele",
-      headerName: "Modéle",
+      field: "nombre_societes",
+      headerName: "Nombre de société",
       flex: 1,
     },
     {
-      field: "societe_siren",
-      headerName: "Siren Société",
+      field: "localisation",
+      headerName: "Localisation",
       flex: 1,
     },
     {
-      field: "activite",
-      headerName: "Activité",
+      field: "prestataire_actuel",
+      headerName: "Prestataire actuel",
       flex: 1,
     },
     {
@@ -78,8 +81,8 @@ function Etablissements() {
           variant="outlined"
           color="primary"
           component={Link}
-          to={`/admin/etablisements/read`}
-          state={{ etablissement : row }}
+          to={`/admin/appeloffres/read`}
+          state={{ appeloffre : row }}
         >
           Consulter
         </Button>
@@ -91,29 +94,14 @@ function Etablissements() {
   return (
     <div>
       <Box m="20px">
-        <HeadContent title="Etablissements" subtitle="Listes des établissements" />
-        <Container fluid>
-          <Row className="text-end">
-            <Col>
-              <Button
-                size="small"
-                variant="outlined"
-                color="success"
-                component={Link}
-                to={`/admin/etablisements/add`}
-              >
-                Ajouter +
-              </Button>
-            </Col>
-          </Row>
-        </Container>
+        <HeadContent title="Appel d'offres" subtitle="Listes des appel d'offres" />
         <Box m="40px 0 0 0" height="75vh">
           <DataGrid
             checkboxSelection
             rows={dataTransformed}
             columns={columns}
             components={{ Toolbar: GridToolbar }}
-            localeText={{ noRowsLabel: "Pas d'établissements" }}
+            localeText={{ noRowsLabel: "Pas d'appel d'offre" }}
           />
         </Box>
       </Box>
@@ -121,4 +109,4 @@ function Etablissements() {
   );
 }
 
-export default Etablissements;
+export default AdminAppeloffre;

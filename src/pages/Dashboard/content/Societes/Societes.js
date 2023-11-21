@@ -11,7 +11,7 @@ import Skeleton from "../Skeleton/Skeleton";
 function Societes() {
   const { data, error, isLoading } = useFetchSocietesQuery();
 
-  console.log(data);
+  console.log("liste :" + data);
 
   if (isLoading) {
     return (

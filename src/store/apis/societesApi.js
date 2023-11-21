@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const authToken = '2|bW3gEj7HYKVci7R5VvsxvDir2oQ8W5n0jqhRIEcr20608780';
+const authToken = "2|3iFqSvyO2IEgtTBsxuJeYSL6jbg4b7FpIDj7M4zmf0f810e2";
 
 const societesApi = createApi({
 

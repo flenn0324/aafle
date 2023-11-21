@@ -4,7 +4,7 @@ import HeadContent from "../../HeadContent";
 import "../../dashboard.css";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
+import { Container } from "reactstrap";
 import { useFetchPrescripteursQuery } from "../../../../store";
 import Skeleton from "../Skeleton/Skeleton";
 
@@ -33,7 +33,6 @@ function Prescripteurs() {
     );
   }
  
-
   const dataTransformed = data.data.map((item) => {
     const { id, attributes } = item;
     return {

@@ -130,7 +130,7 @@ const ProSideBar = () => {
             />
             <Item
               title="Etablissements"
-              to="/admin/etablissements"
+              to="/admin/etablisements"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -165,7 +165,7 @@ const ProSideBar = () => {
             />
             <Item
               title="Appel d'offre"
-              to="/admin/appeloffre"
+              to="/admin/appeloffres"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

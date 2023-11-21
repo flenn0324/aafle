@@ -93,7 +93,7 @@ const ServiceThree = (props) =>{
                     </Row>
                     <Row className='mt-5 text-center'>
                         <div md='3'>
-                            <Link to={`${process.env.PUBLIC_URL}/pages/FunctionalPages/Rdv`} target="_blank" rel="noreferrer" className="btn text-white bg-blue btn-lg">Service Client</Link>
+                            <Link to={`${process.env.PUBLIC_URL}/pages/SitePages/ContactPage`} target="_blank" rel="noreferrer" className="btn text-white bg-blue btn-lg">Contactez-nous</Link>
                         </div>
                     </Row>
                 </SectionContant>
