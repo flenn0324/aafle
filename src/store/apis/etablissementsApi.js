@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const authToken = "2|3iFqSvyO2IEgtTBsxuJeYSL6jbg4b7FpIDj7M4zmf0f810e2";
+const authToken = localStorage.getItem("accessToken");
 
 const etablissementsApi = createApi({
   reducerPath: "etablissements",

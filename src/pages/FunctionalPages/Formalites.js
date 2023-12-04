@@ -15,7 +15,7 @@ import {
   Service,
   ServiceIcon,
   ServiceText,
-} from "../../components/service/Service";
+} from "../../components/service/Service"
 
 const Formalites = (props) => {
   const [modal, setModal] = useState(false);

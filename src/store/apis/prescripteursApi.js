@@ -1,16 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const authToken = "2|3iFqSvyO2IEgtTBsxuJeYSL6jbg4b7FpIDj7M4zmf0f810e2";
+const authToken = localStorage.getItem("accessToken");
 
 const prescripteursApi = createApi({
   reducerPath: "prescripteurs",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000/api",
-    prepareHeaders: (headers) => {
-      // Include the token directly in the headers
-      headers.set("Authorization", `Bearer ${authToken}`);
-      return headers;
-    },
   }),
   endpoints(builder) {
     return {
@@ -21,6 +16,9 @@ const prescripteursApi = createApi({
             url: "/prescripteurs",
             params: {},
             method: "GET",
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
           };
         },
       }),
@@ -32,16 +30,20 @@ const prescripteursApi = createApi({
             params: {},
             method: "POST",
             body: {
-              type_utilisateur: prescripteur.type_utilisateur,
-              civilite: prescripteur.civilite,
-              denomenation: prescripteur.denomenation,
               nom: prescripteur.nom,
               prenom1: prescripteur.prenom1,
               prenom2: prescripteur.prenom2,
               prenom3: prescripteur.prenom3,
-              phone: prescripteur.phone,
-              fix: prescripteur.fix,
+              type_utilisateur: prescripteur.type_utilisateur,
+              denomination_sociale: prescripteur.denomination_sociale,
+              civilite: prescripteur.civilite,
               fonction: prescripteur.fonction,
+              adresse: prescripteur.adresse,
+              telephone: prescripteur.telephone,
+              fix: prescripteur.fix,
+            },
+            headers: {
+              Authorization: `Bearer ${prescripteur.token}`,
             },
           };
         },
@@ -50,7 +52,7 @@ const prescripteursApi = createApi({
         invalidatesTags: ["prescripteur"],
         query: (prescripteur) => ({
           url: `/prescripteurs/${prescripteur.id}`,
-          method: "PATCH", 
+          method: "PATCH",
           body: {
             type_utilisateur: prescripteur.type_utilisateur,
             civilite: prescripteur.civilite,
@@ -63,6 +65,9 @@ const prescripteursApi = createApi({
             fix: prescripteur.fix,
             fonction: prescripteur.fonction,
           },
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
         }),
       }),
       removePrescripteur: builder.mutation({
@@ -71,6 +76,9 @@ const prescripteursApi = createApi({
           return {
             url: `/prescripteurs/${prescripteur.id}`,
             method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
           };
         },
       }),

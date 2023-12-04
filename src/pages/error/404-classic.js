@@ -9,14 +9,13 @@ const Error404Classic = () => {
         <div className="block nk-block-middle wide-xs mx-auto">
           <div className="block-content nk-error-ld text-center">
             <h1 className="nk-error-head">404</h1>
-            <h3 className="nk-error-title">Oops! Why you’re here?</h3>
+            <h3 className="nk-error-title">Oops! Pourquoi es-tu ici ?</h3>
             <p className="nk-error-text">
-              We are very sorry for inconvenience. It looks like you’re try to access a page that either has been deleted
-              or never existed.
+            Nous sommes vraiment désolés pour le désagrément. Il semble que vous essayiez d'accéder à une page qui a soit été supprimée, n'a jamais existé, ou pour laquelle vous n'avez pas l'autorisation d'accès.
             </p>
             <Link to={`${process.env.PUBLIC_URL}/`}>
               <Button color="primary" size="lg" className="mt-2">
-                Back To Home
+                Retour au page d'accueil
               </Button>
             </Link>
           </div>

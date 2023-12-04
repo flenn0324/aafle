@@ -5,6 +5,7 @@ import {societesApi} from "./apis/societesApi";
 import {dirigeantsApi} from "./apis/dirigeantsApi";
 import { etablissementsApi } from "./apis/etablissementsApi";
 import { appeloffresApi } from "./apis/appeloffresApi";
+import { authApi } from "./apis/authApi";
 
 
 import { prescripteursReducer } from "./slices/prescripteursSlice";
@@ -17,14 +18,16 @@ export const store = configureStore({
         [societesApi.reducerPath] : societesApi.reducer,
         [dirigeantsApi.reducerPath] : dirigeantsApi.reducer,
         [etablissementsApi.reducerPath] : etablissementsApi.reducer,
-        [appeloffresApi.reducerPath] : appeloffresApi.reducer
+        [appeloffresApi.reducerPath] : appeloffresApi.reducer,
+        [authApi.reducerPath] : appeloffresApi.reducer
     }, 
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware().concat(societesApi.middleware)
         .concat(prescripteursApi.middleware)
         .concat(dirigeantsApi.middleware)
         .concat(etablissementsApi.middleware)
-        .concat(appeloffresApi.middleware);
+        .concat(appeloffresApi.middleware)
+        .concat(authApi.middleware);
     } 
 });
 
@@ -34,6 +37,7 @@ export {useFetchPrescripteursQuery,useAddPrescripteurMutation,useRemovePrescript
 export {useFetchSocietesQuery,useAddSocieteMutation,useRemoveSocieteMutation,useUpdateSocieteMutation} from './apis/societesApi';
 export {useFetchDirigeantsQuery,useAddDirigeantMutation,useRemoveDirigeantMutation,useUpdateDirigeantMutation} from './apis/dirigeantsApi';
 export {useFetchAppeloffresQuery,useRemoveAppeloffreMutation,useUpdateAppeloffreMutation} from './apis/appeloffresApi';
+export {useLoginUserMutation,useLogoutUserMutation,useRegisterUserMutation} from './apis/authApi';
 export  {
     useFetchEtablissementsQuery,
     useAddEtablissementMutation,

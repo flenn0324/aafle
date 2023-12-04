@@ -8,6 +8,7 @@ import {useAddSocieteMutation} from "../../../../store";
 
 const AddSociete = () => {
   const[addSociete,results] = useAddSocieteMutation();
+  
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const alert =()=>{
@@ -15,10 +16,10 @@ const AddSociete = () => {
   }
 
   const handleFormSubmit = async (values) => {
-    console.log(values);
-    await addSociete(values);
-    alert();
-    window.location.replace('/admin/societes'); 
+    console.log(values)
+    await addSociete(values)
+    alert()
+    window.location.replace('/admin/societes')
   };
 
   

@@ -36,6 +36,44 @@ const BannerIndexData = [
   
 ];
 
+const BannerIndexDataNoToken = [
+  {
+    text: "Home",
+    to: "/",
+  },
+  {
+    text: "Services",
+    to: "/",
+    subMenu: [
+      {
+        text: "Annuaires",
+        to: "/pages/auths/auth-login",
+      },
+      {
+        text: "Abecedaire des Formalites",
+        to: "/pages/auths/auth-login",
+      },
+      {
+        text: "Annonces Légales",
+        to: "/pages/auths/auth-login",
+      },
+      {
+        text: "Livres Légaux",
+        to: "/pages/auths/auth-login",
+      },
+    ],
+  },
+  {
+    text: "Contact",
+    to: "/pages/SitePages/ContactPage",
+  },
+  {
+    text: "FAQ",
+    to: "/pages/SitePages/FaqPage",
+  },
+  
+];
+
 const TopBannerData = [
   {
     text: "Home",
@@ -59,4 +97,4 @@ const TopBannerData = [
   },
 ];
 
-export { BannerIndexData, TopBannerData };
+export { BannerIndexData, TopBannerData,BannerIndexDataNoToken };

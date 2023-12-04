@@ -84,6 +84,7 @@ function App() {
           <Route path={`${process.env.PUBLIC_URL}/pages/FunctionalPages/AppelOffre`} element={<AppelOffre/>}  />
           <Route path={`${process.env.PUBLIC_URL}/pages/SitePages/FaqPage`} element={<FaqPage/>}  />
           <Route path={`${process.env.PUBLIC_URL}/pages/SitePages/ContactPage`} element={<ContactPage/>}  />
+          <Route path={`/unauthorized`} element={<Error404Classic/>}  />
           <Route path={`/admin`} element={<AdminLayouts/>}>
             <Route path={`/admin`} element={<AdminDashboard/>} />
             <Route path={`/admin/demandesformalites`} element={<Demandesformalites/>} />

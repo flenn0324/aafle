@@ -64,7 +64,7 @@ const BannerIndex = (props) => {
           offset > 0 ? "has-fixed" : ""
         }`}
       >
-        <TopHeader></TopHeader>
+      <TopHeader></TopHeader>
       </HeaderMain>
 
       <HeaderContent className=" mb-5">
