@@ -13,6 +13,8 @@ import { useAddPrescripteurMutation } from "../../store";
 import { useRegisterUserMutation } from "../../store";
 import { useLoginUserMutation } from "../../store";
 import { NioIcon } from "../../components/icon/Icon";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreatePrescripteur = () => {
   const [addprescripteur, results] = useAddPrescripteurMutation();
@@ -21,6 +23,29 @@ const CreatePrescripteur = () => {
 
   const [loading, setLoading] = useState(false);
   const [errorVal, setError] = useState("");
+
+  const notifySucces = () =>
+    toast.success("Succès !", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  const notifyEchec = () =>
+    toast.error("Echec ! ", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
 
   const initialValues = {
     nom: "",
@@ -44,6 +69,7 @@ const CreatePrescripteur = () => {
 
     if (response2.data) {
       console.log("SUUUCCCCESSS Prescripteur created :", response2);
+      notifySucces()
       const responseLogin = await login(valueLogin);
       if (responseLogin.data) {
         console.log("Login :", responseLogin.data.data.token);
@@ -65,6 +91,7 @@ const CreatePrescripteur = () => {
         }, 2000);
       }
     } else {
+      notifyEchec()
       console.log("ERROR Prescrpteur not created ERROR :", response2);
       setError("Error dans la création du prescripteur");
       setLoading(false)
@@ -110,11 +137,13 @@ const CreatePrescripteur = () => {
       const authToken = localStorage.getItem("accessToken");
 
       valuespresc.token = authToken;
+      notifySucces()
 
       const responsePrescripteur = await calladdprescripteur(valuespresc,valueLogin);
 
 
     } else {
+      notifyEchec()
       setLoading(false)
       console.log("ERROR Login :", resultsUser)
       setError("Error dans la création du compte");
@@ -149,46 +178,6 @@ const CreatePrescripteur = () => {
               }}
             >
               <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
-                <FormLabel component="legend">Type utilisateur :</FormLabel>
-                <RadioGroup
-                  aria-label="type_utilisateur"
-                  name="type_utilisateur"
-                  value={values.type_utilisateur}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  row
-                >
-                  <FormControlLabel
-                    value="client"
-                    control={<Radio />}
-                    label="Client"
-                  />
-                  <FormControlLabel
-                    value="donneur_dordre"
-                    control={<Radio />}
-                    label="Donneur d'ordre"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Dénomination sociale"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.denomination_sociale}
-                name="denomination_sociale"
-                error={
-                  !!touched.denomination_sociale &&
-                  !!errors.denomination_sociale
-                }
-                helperText={
-                  touched.denomination_sociale && errors.denomination_sociale
-                }
-                sx={{ gridColumn: "span 2" }}
-              />
-              <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
                 <FormLabel component="legend">Civilité :</FormLabel>
                 <RadioGroup
                   aria-label="civilite"
@@ -211,6 +200,48 @@ const CreatePrescripteur = () => {
                   />
                 </RadioGroup>
               </FormControl>
+              <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
+                <FormLabel component="legend">Type utilisateur :</FormLabel>
+                <RadioGroup
+                  aria-label="type_utilisateur"
+                  name="type_utilisateur"
+                  value={values.type_utilisateur}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  row
+                >
+                  <FormControlLabel
+                    value="client"
+                    control={<Radio />}
+                    label="Client"
+                  />
+                  <FormControlLabel
+                    value="donneur_dordre"
+                    control={<Radio />}
+                    label="Donneur d'ordre"
+                  />
+                </RadioGroup>
+              </FormControl>
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Dénomination sociale"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.denomination_sociale}
+                name="denomination_sociale"
+                error={
+                  !!touched.denomination_sociale &&
+                  !!errors.denomination_sociale
+                }
+                helperText={
+                  touched.denomination_sociale && errors.denomination_sociale
+                }
+                sx={{ gridColumn: "span 2" }}
+              />
+              
               <TextField
                 fullWidth
                 variant="filled"
@@ -397,6 +428,7 @@ const CreatePrescripteur = () => {
         )}
       </Formik>
       <p className="text-white mt-3">Tous les champs * doivent être remplis</p>
+      <ToastContainer />
     </Container>
   );
 };

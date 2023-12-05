@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 import { NioIcon } from "../../components/icon/Icon";
 import TopHeader from "../../section/TopHeader/TopHeader";
 import { useLoginUserMutation } from "../../store";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [login, results] = useLoginUserMutation();
@@ -19,6 +21,29 @@ const Login = () => {
   const [passState, setPassState] = useState(false);
   const [errorVal, setError] = useState("");
 
+  const notifySucces = () =>
+    toast.success("Vous êtes connecté avec succès!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  const notifyEchec = () =>
+    toast.error("Echec de connexion ! ", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
   const onFormSubmit = async (formData) => {
     setLoading(true);
     const response = await login(formData);
@@ -26,6 +51,8 @@ const Login = () => {
       console.log("Login :", response.data.data.token);
       localStorage.setItem("accessToken", response.data.data.token);
       localStorage.setItem("nom", response.data.data.user.name);
+      localStorage.setItem("role", response.data.data.user.role);
+      notifySucces();
       setTimeout(() => {
         window.history.pushState(
           `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/"}`,
@@ -36,6 +63,7 @@ const Login = () => {
       }, 2000);
     } else {
       setTimeout(() => {
+        notifyEchec();
         setError("Cannot login with credentials");
         setLoading(false);
       }, 2000);
@@ -182,6 +210,7 @@ const Login = () => {
           </div>
         </div>
         <AuthFooter />
+        <ToastContainer />
       </PageContainer>
     </React.Fragment>
   );

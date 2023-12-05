@@ -15,7 +15,9 @@ import {
   Service,
   ServiceIcon,
   ServiceText,
-} from "../../components/service/Service"
+} from "../../components/service/Service";
+import MainFormalite from "../../section/formalites/MainFormalite";
+import Document1 from "../../section/formalites/Document1";
 
 const Formalites = (props) => {
   const [modal, setModal] = useState(false);
@@ -25,18 +27,21 @@ const Formalites = (props) => {
   return (
     <div className="nk-main">
       <TopHeader></TopHeader>
-
-      <h1 className="m-5 p-5">Page formalites legales</h1>
-
-      <Container>
-        <Row className="text-center">
-          <Button className="my-3" color="danger" onClick={toggle}>
-            Demande formalite
-          </Button>
+      <Container className="justify-content-center bg-white p-5 border my-5">
+        <h2 className="text-center">Abécédaire des formalites</h2>
+        <h5 className="text-center">Liste des formalites légales</h5>
+        <p className="mt-5 mb-3">Choisissez la formalite que vous voulez demander : </p>
+        <Row>
+          <MainFormalite></MainFormalite>
         </Row>
+        {/*<Button className="my-3" color="danger" onClick={toggle}>
+          Demande formalite
+  </Button>*/}
       </Container>
 
-      <FooterTwo className="bg-blue is-blue" />
+        <Document1></Document1>
+
+
 
       <Modal
         isOpen={modal}
@@ -55,7 +60,13 @@ const Formalites = (props) => {
                       <ServiceText className="text-center">
                         <h5 className="title text-danger">Accompagner</h5>
                         <p>Vers un rendez-vous</p>
-                        <Button className="btn bg-blue" target="_blank" href="/landing/pages/FunctionalPages/Rdv">Clicker ici</Button>
+                        <Button
+                          className="btn bg-blue"
+                          target="_blank"
+                          href="/landing/pages/FunctionalPages/Rdv"
+                        >
+                          Clicker ici
+                        </Button>
                       </ServiceText>
                     </Service>
                   </div>
@@ -69,7 +80,13 @@ const Formalites = (props) => {
                       <ServiceText className="text-center">
                         <h5 className="title text-success">Premium</h5>
                         <p>Vers une demande formalite</p>
-                        <Button className="btn bg-blue" target="_blank" href="/landing/pages/FunctionalPages/Rdv">Clicker ici</Button>
+                        <Button
+                          className="btn bg-blue"
+                          target="_blank"
+                          href="/landing/pages/FunctionalPages/Rdv"
+                        >
+                          Clicker ici
+                        </Button>
                       </ServiceText>
                     </Service>
                   </div>
@@ -83,7 +100,13 @@ const Formalites = (props) => {
                       <ServiceText className="text-center">
                         <h5 className="title text-danger">Seul</h5>
                         <p>Vers un service externe</p>
-                        <Button className="btn bg-blue" target="_blank" href="/landing/pages/FunctionalPages/Rdv">Clicker ici</Button>
+                        <Button
+                          className="btn bg-blue"
+                          target="_blank"
+                          href="/landing/pages/FunctionalPages/Rdv"
+                        >
+                          Clicker ici
+                        </Button>
                       </ServiceText>
                     </Service>
                   </div>
