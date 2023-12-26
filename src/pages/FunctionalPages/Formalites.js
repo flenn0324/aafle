@@ -17,7 +17,6 @@ import {
   ServiceText,
 } from "../../components/service/Service";
 import MainFormalite from "../../section/formalites/MainFormalite";
-import Document1 from "../../section/formalites/Document1";
 
 const Formalites = (props) => {
   const [modal, setModal] = useState(false);
@@ -38,8 +37,6 @@ const Formalites = (props) => {
           Demande formalite
   </Button>*/}
       </Container>
-
-        <Document1></Document1>
 
 
 

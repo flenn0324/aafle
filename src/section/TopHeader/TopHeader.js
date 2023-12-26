@@ -147,22 +147,7 @@ const TopHeader = (props) => {
             )}
           </nav>
 
-          <nav
-            className={`header-menu menu ${toggle === true ? "active" : ""} ${
-              mobileView ? "mobile-menu" : ""
-            }`}
-          >
-            {!mobileView ? (
-              <Menu
-                className="ms-lg-auto"
-                data={BannerFormalite}
-              />
-            ) : (
-              <MobileMenu
-                data={ BannerFormalite}
-              />
-            )}
-          </nav>
+        
           
 
           {nom ? (

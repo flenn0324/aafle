@@ -113,7 +113,8 @@ const BannerFormalite = [
               },
               {
                 text: "Location gérance",
-                to: "",
+                to: "/Immatriculation/personne-morale/societe-a-responsabilite-limitee-sarl-location-gerance-fonds-de-commerce",
+                target: "_blank",
               },
               {
                 text: "Apport d'un fond de commerce",
