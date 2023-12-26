@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\DB;
+
+
 
 class AuthController extends Controller
 {
@@ -24,12 +27,11 @@ class AuthController extends Controller
     {
         $request->validated($request->all());
 
-        if(!Auth::attempt(['email' => $request->email, 'password' => $request->password]))
-        {
-            return $this->error('','Credentials do not match',401);
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return $this->error('', 'Credentials do not match', 401);
         }
 
-        $user = User::where('email',$request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
         return $this->success([
             'user' => $user,
@@ -54,9 +56,16 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::user()->currentAccessToken()->delete();
+        $user = Auth::user();
+        $userId = $user->id;
+
+        // Supprimer les tokens associés à l'utilisateur de la table personal_access_tokens
+        DB::table('personal_access_tokens')
+            ->where('tokenable_id', $userId)
+            ->where('tokenable_type', User::class)
+            ->delete();
 
         return $this->success([
             'message' => 'u have succesfully logout'
@@ -101,12 +110,13 @@ class AuthController extends Controller
         return redirect(route('verify'));
     }
 
-     /**
+    /**
      * Resend the user a verification email.
      *
      * @return RedirectResponse
      */
-    public function resend(Request $request){
+    public function resend(Request $request)
+    {
         $request->user()->sendEmailVerificationNotification();
         return back()->with('message', 'Verification link sent!');
     }
@@ -116,7 +126,8 @@ class AuthController extends Controller
      *
      * @return JsonResponse
      */
-    public function reset(ResetPasswordRequest $resetPasswordRequest){
+    public function reset(ResetPasswordRequest $resetPasswordRequest)
+    {
         $credentials = request()->validate([
             'email' => 'required|email',
             'token' => 'required|string',
@@ -134,5 +145,4 @@ class AuthController extends Controller
 
         return $this->success('', "Password has been successfully changed.");
     }
-
 }

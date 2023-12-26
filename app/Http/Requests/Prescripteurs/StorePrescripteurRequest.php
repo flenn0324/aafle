@@ -27,8 +27,6 @@ class StorePrescripteurRequest extends FormRequest
             'type_utilisateur' => ['required', 'string', 'in:client,donneur_dordre'],
             'denomination_sociale' => ['required', 'string', 'max:255'],
             'civilite' => ['required', 'string', 'in:Mr,Mme,Maitre'],
-            'prenom2' => ['string', 'max:255'],
-            'prenom3' => ['string', 'max:255'],
             'fonction' => ['required', 'string', 'in:avocat,function2,function3'],
             'adresse' => ['required', 'string', 'max:255'],
             'telephone' => ['required', 'numeric'], // Assuming a maximum length of 20
