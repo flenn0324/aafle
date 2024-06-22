@@ -2,7 +2,7 @@
 
 # aafle
 Project build with : 
-LARAVEL API  : source code in folder backend-dev
+LARAVEL API  
 React JS SPA : source code in folder frontend 
 =======
 # Getting Started with Create React App
